@@ -2,7 +2,7 @@
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Wendellynizer/pwd_registry.git
+git clone https://github.com/Wendellynizer/pwd_registry_system.git
 cd pwd_registry_system
 ```
 
@@ -19,15 +19,17 @@ pip install -r .\requirements.txt
 
 4. Setup the Environment:
 ```bash
+cd backend
 cp .env.example .env
 ```
 
 5. Run the Application:
 ######for the backend
-	- ```bash
+	```bash
 	python manage.py runserver
 	```
+ 
 ######for the frontend
-	- ```bash
-	npm install
+```bash
+npm install
 ```
