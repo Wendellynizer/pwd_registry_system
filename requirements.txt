@@ -1,0 +1,5 @@
+# list of all essential python dependencies for the project
+django
+djangorestframework
+django-cors-headers
+python-dotenv
