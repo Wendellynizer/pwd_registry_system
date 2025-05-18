@@ -24,10 +24,10 @@ cp .env.example .env
 
 5. Run the Application:
 ######for the backend
-	- ```bash
+	```bash
 	python manage.py runserver
 	```
 ######for the frontend
-	- ```bash
+	```bash
 	npm install
-```
+	```
