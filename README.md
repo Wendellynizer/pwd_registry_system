@@ -2,7 +2,7 @@
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Wendellynizer/pwd_registry.git
+git clone https://github.com/Wendellynizer/pwd_registry_system.git
 cd pwd_registry_system
 ```
 
@@ -27,7 +27,8 @@ cp .env.example .env
 	```bash
 	python manage.py runserver
 	```
+ 
 ######for the frontend
-	```bash
-	npm install
-	```
+```bash
+npm install
+```
