@@ -19,6 +19,7 @@ pip install -r .\requirements.txt
 
 4. Setup the Environment:
 ```bash
+cd backend
 cp .env.example .env
 ```
 
