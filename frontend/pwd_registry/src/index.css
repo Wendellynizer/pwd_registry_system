@@ -3,3 +3,7 @@
 @theme {
     --font-display: "sans"
 }
+
+#root {
+    /* background-color: blue; */
+}

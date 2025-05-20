@@ -11,7 +11,3 @@ class BarangayListAPIView(generics.ListAPIView):
     queryset = Barangay.objects.all()
     serializer_class = BarangaySerializer
     permission_classes = [IsAuthenticated]
-
-@api_view()
-def get_hello(request):
-    return Response({'hello world'})
