@@ -20,6 +20,9 @@ class City(models.Model):
 class Province(models.Model):
     province_name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.province_name
+
 class Address(models.Model):
     street_address = models.CharField(max_length=150)
     barangay = models.ForeignKey(Barangay, on_delete=models.CASCADE, null=True, blank=True)
