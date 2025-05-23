@@ -5,6 +5,7 @@ function App() {
   	const [username, setUsername] = useState("");
   	const [password, setPassword] = useState("");
 
+<<<<<<< HEAD
 	const [barangays, setBarangays] = useState<any[]>([]);
 	const [cities, setCities] = useState<any[]>([]);
 	const [provinces, setProvinces] = useState<any[]>([]);
@@ -361,6 +362,11 @@ function App() {
 			</form>
 		</div>
 	</div>
+=======
+  return (
+   <>
+   </>
+>>>>>>> b357bc3a30d3e642be8b649d37863267df977be7
   );
 }
 
