@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const login = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/token/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username, password})
+      });
+
+       const data = await response.json();
+
+      if (response.ok) {
+        console.log(data.access);
+        console.log(data.refresh);
+      } else {
+        console.log('error')
+      }
+
+    } catch(e) {
+      console.log('blahblag');
+    }
+  }
 
   return (
-    <>
+    <div>
+      {/* title */}
+      <p>Welcome Back!</p>
+
+      {/* login container */}
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <input type="text" name="username" onChange={e => setUsername(e.target.value)} className="border rounded-xs"/>
+          <input type="text" name="password" onChange={e => setPassword(e.target.value)} className="border rounded-xs"/>
+          <input type="submit" value="Submit" onClick={login} className="bg-blue-300 p-2 rounded-xs cursor-pointer" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
