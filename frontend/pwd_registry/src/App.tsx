@@ -1,10 +1,65 @@
-import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import SidebarLayout from "./layout/SidebarLayout";
+import PWDInfo from "./pages/PWDInfo";
+import Barangay from "./pages/Barangay";
+import DisabilityInfo from "./pages/DisabilityInfo";
+import User from "./pages/User";
+import Map from "./pages/Map";
+import Analytics from "./pages/Analytics";
+import Reports from "./pages/Reports";
+import WalkInApplicationForm from "./pages/WalkInApplicationForm";
+import AddDisability from "./pages/AddDisability";
+import AddPersonnel from "./pages/AddPersonnel";
+import Login from "./pages/Login";
+import Settings from "./pages/Settings";
+
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  return isLoggedIn ? children : <Navigate to="/login" />;
+};
 
 function App() {
-
   return (
-   <>
-   </>
+    <Router>
+      <Routes>
+        {/* 🔓 Public Login Route */}
+        <Route path="/login" element={<Login />} />
+
+        {/* 🔒 Protected Routes */}
+        <Route
+          path="/*"
+          element={
+            <RequireAuth>
+              <SidebarLayout />
+            </RequireAuth>
+          }
+        >
+          {/* Nested Routes */}
+          <Route index element={<Dashboard />} />
+          <Route path="pwd-info" element={<PWDInfo />} />
+          <Route path="barangay" element={<Barangay />} />
+          <Route path="disability-info" element={<DisabilityInfo />} />
+          <Route path="user" element={<User />} />
+          <Route path="map" element={<Map />} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="reports" element={<Reports />} />
+          <Route
+            path="walk-in-application"
+            element={<WalkInApplicationForm />}
+          />
+          <Route path="add-disability" element={<AddDisability />} />
+          <Route path="add-personnel" element={<AddPersonnel />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
   );
 }
 

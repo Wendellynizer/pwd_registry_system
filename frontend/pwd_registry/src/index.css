@@ -8,6 +8,25 @@
     --font-display: "sans"
 }
 
+html {
+  font-family: 'Poppins', sans-serif;
+  @apply bg-white text-gray-900;
+}
+
 #root {
     /* background-color: blue; */
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate-bounce-in {
+  animation: bounce-in 0.3s ease-out;
 }
