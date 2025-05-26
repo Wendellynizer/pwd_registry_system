@@ -38,7 +38,7 @@ export default function User() {
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="table">
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-sky-950 text-white">
             <tr>
               <th>Last Name</th>
               <th>First Name</th>

@@ -1,9 +1,24 @@
 // src/pages/PWDInfo.tsx
 import { FaEye, FaSearch, FaPlus, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import DeleteConfirmationModal from "../components/Shared/DeleteConfirmationModal"; // ✅ Add this
 
 export default function PWDManage() {
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const handleDeleteClick = (id: string) => {
+    setSelectedId(id);
+    setModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    console.log("Deleting", selectedId); // Replace with actual delete logic
+    setModalOpen(false);
+  };
 
   const pwds = [
     {
@@ -71,7 +86,6 @@ export default function PWDManage() {
           <FaPlus /> Walk-in Application
         </button>
       </div>
-
       {/* Search and Filter */}
       <div className="flex gap-2 items-center">
         <label className="input input-bordered flex items-center gap-2 max-w-xs">
@@ -80,11 +94,10 @@ export default function PWDManage() {
         </label>
         <button className="btn btn-outline">Filter</button>
       </div>
-
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="table table-zebra">
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-sky-950 text-white">
             <tr>
               <th>#</th>
               <th>Issued PWD ID</th>
@@ -121,12 +134,14 @@ export default function PWDManage() {
                   <button
                     className="btn btn-sm btn-info text-white tooltip"
                     data-tip="View"
+                    onClick={() => navigate(`/pwd-info/${pwd.id}`)}
                   >
                     <FaEye />
                   </button>
                   <button
                     className="btn btn-sm btn-error text-white tooltip"
                     data-tip="Delete"
+                    onClick={() => handleDeleteClick(pwd.id)}
                   >
                     <FaTrash />
                   </button>
@@ -145,6 +160,13 @@ export default function PWDManage() {
           <button className="join-item btn">Next</button>
         </div>
       </div>
+      <DeleteConfirmationModal
+        id={selectedId || ""}
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
+      ;
     </div>
   );
 }

@@ -18,6 +18,8 @@ import AddDisability from "./pages/AddDisability";
 import AddPersonnel from "./pages/AddPersonnel";
 import Login from "./pages/Login";
 import Settings from "./pages/Settings";
+import PWDProfile from "./pages/PWDProfile";
+import EditPWDProfile from "./pages/EditPWDProfile";
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -56,6 +58,8 @@ function App() {
           <Route path="add-disability" element={<AddDisability />} />
           <Route path="add-personnel" element={<AddPersonnel />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="pwd-info/:id" element={<PWDProfile />} />
+          <Route path="pwd-info/:id/edit" element={<EditPWDProfile />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
