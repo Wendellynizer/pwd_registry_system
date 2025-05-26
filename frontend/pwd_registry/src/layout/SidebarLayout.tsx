@@ -42,15 +42,18 @@ const SidebarLayout = () => {
     return (
       <NavLink
         to={to}
-        className={`group relative flex items-center transition-all duration-300 ease-in-out rounded-md ${
-          isSidebarOpen
-            ? "px-4 py-2 gap-3 justify-start"
-            : "w-12 h-12 justify-center"
-        } ${
-          isActive
-            ? "bg-white text-blue-700 font-bold"
-            : "hover:bg-blue-500 text-white"
-        }`}
+        end={to === "/"}
+        className={({ isActive }) =>
+          `group relative flex items-center transition-all duration-300 ease-in-out rounded-md ${
+            isSidebarOpen
+              ? "px-4 py-2 gap-3 justify-start"
+              : "w-12 h-12 justify-center"
+          } ${
+            isActive
+              ? "bg-white text-sky-950 font-bold shadow-md"
+              : "hover:bg-sky-950 hover:text-white text-white"
+          }`
+        }
       >
         <Icon className="text-lg transition-all duration-300 ease-in-out" />
         <span
@@ -68,11 +71,11 @@ const SidebarLayout = () => {
     <div className="flex h-screen bg-gray-100 text-gray-900">
       {/* Sidebar */}
       <aside
-        className={`transition-all duration-300 ease-in-out bg-blue-600 text-white flex flex-col shadow-lg overflow-hidden border-r border-blue-500 ${
+        className={`transition-all duration-300 ease-in-out bg-sky-950 text-white flex flex-col shadow-lg overflow-hidden border-r border-sky-900 ${
           isSidebarOpen ? "w-64" : "w-16"
         }`}
       >
-        <div className="p-4 border-b border-blue-400 flex items-center gap-2">
+        <div className="p-4 border-b border-cyan-100 flex items-center gap-2">
           <span className="text-2xl">♿</span>
           {isSidebarOpen && (
             <span className="text-xl font-bold">iPWD Registry</span>
@@ -146,7 +149,7 @@ const SidebarLayout = () => {
         </nav>
 
         {/* Footer */}
-        <div className="mt-auto w-full border-t border-blue-400 py-4 px-3">
+        <div className="mt-auto w-full border-t border-cyan-100 py-4 px-3">
           {isSidebarOpen ? (
             <div className="flex flex-col items-center gap-3">
               <div className="text-sm font-medium text-white text-center">

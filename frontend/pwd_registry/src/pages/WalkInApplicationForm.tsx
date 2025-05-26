@@ -12,6 +12,11 @@ export default function WalkInApplicationForm() {
     { type: "", specific: "" },
   ]);
 
+  const [dateApplied, setDateApplied] = useState(() => {
+    const today = new Date();
+    return today.toISOString().split("T")[0]; // format: YYYY-MM-DD
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setShowSuccess(true);
@@ -49,14 +54,28 @@ export default function WalkInApplicationForm() {
           { label: "Walk-in Application" },
         ]}
       />
-      <h1 className="text-2xl font-bold">Walk-in Application</h1>
+      {/* Header: Title left, Back right */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-gray-800">
+          Walk-in Application
+        </h1>
+        <button className="btn btn-sm btn-outline" onClick={() => navigate(-1)}>
+          ← Back
+        </button>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Date Applied */}
         <div className="card bg-base-100 shadow-md p-6 max-w-md">
           <div className="form-control space-y-1">
             <label className="label font-medium">Date Applied</label>
-            <input type="date" className="input input-bordered" required />
+            <input
+              type="date"
+              className="input input-bordered"
+              value={dateApplied}
+              onChange={(e) => setDateApplied(e.target.value)}
+              required
+            />
           </div>
         </div>
 

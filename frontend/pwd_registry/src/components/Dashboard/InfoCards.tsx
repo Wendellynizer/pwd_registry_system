@@ -10,19 +10,19 @@ const InfoCards = () => {
       {data.map((card) => (
         <div
           key={card.title}
-          className={`card ${card.bg} shadow-md border border-gray-200`}
+          className={`card ${card.bg} shadow-md border border-gray-200 min-h-[12rem]`}
         >
-          <div className="card-body px-6 py-4">
-            <div className="flex items-center gap-4">
-              {/* Icon Section */}
-              <div className="text-4xl">{card.icon}</div>
+          <div className="card-body px-6 py-6">
+            <div className="flex items-center justify-between w-full gap-4 pt-7">
+              {/* Icon on the left */}
+              <div className="text-6xl sm:text-7xl">{card.icon}</div>
 
-              {/* Text Section */}
+              {/* Text on the right */}
               <div className="text-right flex-1">
-                <div className="text-sm font-medium text-gray-600">
+                <div className="text-lg font-medium text-gray-600">
                   {card.title}
                 </div>
-                <div className="text-3xl font-bold text-gray-800">
+                <div className="text-5xl font-bold text-gray-800">
                   {card.value}
                 </div>
               </div>
