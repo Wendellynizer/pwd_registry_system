@@ -11,3 +11,11 @@ class BarangayListAPIView(generics.ListAPIView):
     queryset = Barangay.objects.all()
     serializer_class = BarangaySerializer
     permission_classes = [IsAuthenticated]
+
+@api_view(['POST'])
+def login(request):
+    return Response({'Hi'})
+
+@api_view(['POST'])
+def create_account(request):
+    return Response({'create account'})
