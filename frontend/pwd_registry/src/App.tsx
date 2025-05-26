@@ -5,7 +5,6 @@ function App() {
   	const [username, setUsername] = useState("");
   	const [password, setPassword] = useState("");
 
-<<<<<<< HEAD
 	const [barangays, setBarangays] = useState<any[]>([]);
 	const [cities, setCities] = useState<any[]>([]);
 	const [provinces, setProvinces] = useState<any[]>([]);
@@ -53,11 +52,11 @@ function App() {
 	const fetchBarangays = async () => {
 		test();
 
-		setBarangays(await get_all_barangays());
-		setCities(await get_all_city());
-		setProvinces(await get_all_province());
-		setEducations(await get_education());
-		setOccupations(await get_occupations());
+		// setBarangays(await get_all_barangays());
+		// setCities(await get_all_city());
+		// setProvinces(await get_all_province());
+		// setEducations(await get_education());
+		// setOccupations(await get_occupations());
 	}
 
 	useEffect(() => {
@@ -148,9 +147,9 @@ function App() {
 					<div>
 						<label htmlFor="">City/Municipality</label>
 						<select name="city" id="" className="border">
-							{cities.map((city) => (
+							{/* {cities.map((city) => (
 								<option key={city.id} value={city.id}>{city.city_name}</option>
-							))}
+							))} */}
 						</select>
 					</div>
 
@@ -362,11 +361,6 @@ function App() {
 			</form>
 		</div>
 	</div>
-=======
-  return (
-   <>
-   </>
->>>>>>> b357bc3a30d3e642be8b649d37863267df977be7
   );
 }
 
