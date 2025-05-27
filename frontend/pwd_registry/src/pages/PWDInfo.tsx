@@ -1,12 +1,10 @@
-// src/pages/PWDInfo.tsx
 import { FaEye, FaSearch, FaPlus, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import DeleteConfirmationModal from "../components/Shared/DeleteConfirmationModal"; // ✅ Add this
+import DeleteConfirmationModal from "../components/Shared/DeleteConfirmationModal";
 
 export default function PWDManage() {
   const navigate = useNavigate();
-
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -68,36 +66,59 @@ export default function PWDManage() {
     },
   ];
 
+  const totalActive = pwds.filter((p) => p.status === "Active").length;
+  const totalInactive = pwds.filter((p) => p.status === "Inactive").length;
+
   return (
-    <div className="space-y-4">
-      {/* Title and Counters */}
-      <div className="flex justify-between items-center">
+    <div className="space-y-6">
+      {/* Title & Summary Cards */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-xl font-bold">PWD Management</h1>
-          <div className="flex gap-4 mt-2">
-            <span className="text-green-600">● Total Active</span>
-            <span className="text-red-600">● Total Inactive</span>
+          <h1 className="text-2xl font-bold text-gray-800">PWD Management</h1>
+          <div className="mt-4 flex gap-4">
+            <div className="card bg-green-100 border-l-4 border-green-600 shadow-sm">
+              <div className="card-body p-4">
+                <h2 className="text-sm text-green-700 font-semibold">
+                  Total Active
+                </h2>
+                <p className="text-lg font-bold text-green-900">
+                  {totalActive}
+                </p>
+              </div>
+            </div>
+            <div className="card bg-red-100 border-l-4 border-red-600 shadow-sm">
+              <div className="card-body p-4">
+                <h2 className="text-sm text-red-700 font-semibold">
+                  Total Inactive
+                </h2>
+                <p className="text-lg font-bold text-red-900">
+                  {totalInactive}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <button
-          className="btn btn-success"
+          className="btn btn-success shadow-md"
           onClick={() => navigate("/walk-in-application")}
         >
-          <FaPlus /> Walk-in Application
+          <FaPlus className="mr-2" /> Walk-in Application
         </button>
       </div>
-      {/* Search and Filter */}
-      <div className="flex gap-2 items-center">
+
+      {/* Search & Filter */}
+      <div className="flex flex-wrap gap-2 items-center">
         <label className="input input-bordered flex items-center gap-2 max-w-xs">
           <FaSearch />
           <input type="text" className="grow" placeholder="Search" />
         </label>
         <button className="btn btn-outline">Filter</button>
       </div>
+
       {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          <thead className="bg-sky-950 text-white">
+      <div className="overflow-x-auto rounded-lg shadow-sm">
+        <table className="table table-hover text-sm">
+          <thead className="bg-sky-950 text-white text-sm">
             <tr>
               <th>#</th>
               <th>Issued PWD ID</th>
@@ -107,66 +128,75 @@ export default function PWDManage() {
               <th>Sex</th>
               <th>Disability Type</th>
               <th>Status</th>
-              <th>Actions</th>
+              <th className="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {pwds.map((pwd, i) => (
               <tr
                 key={i}
-                className={pwd.status === "Inactive" ? "bg-red-100" : ""}
+                className={`transition-all hover:bg-blue-50 ${
+                  pwd.status === "Inactive" ? "bg-red-50" : ""
+                }`}
               >
                 <td>{i + 1}</td>
-                <td>{pwd.id}</td>
+                <td className="font-mono">{pwd.id}</td>
                 <td>{pwd.lastName}</td>
                 <td>{pwd.firstName}</td>
                 <td>{pwd.middleName}</td>
                 <td>{pwd.sex}</td>
                 <td>{pwd.type}</td>
                 <td
-                  className={`font-semibold ${
+                  className={`font-medium ${
                     pwd.status === "Active" ? "text-green-600" : "text-red-600"
                   }`}
                 >
                   {pwd.status}
                 </td>
-                <td className="flex gap-2">
-                  <button
-                    className="btn btn-sm btn-info text-white tooltip"
-                    data-tip="View"
-                    onClick={() => navigate(`/pwd-info/${pwd.id}`)}
-                  >
-                    <FaEye />
-                  </button>
-                  <button
-                    className="btn btn-sm btn-error text-white tooltip"
-                    data-tip="Delete"
-                    onClick={() => handleDeleteClick(pwd.id)}
-                  >
-                    <FaTrash />
-                  </button>
+                <td>
+                  <div className="flex justify-center gap-2">
+                    <button
+                      className="btn btn-sm btn-info text-white tooltip"
+                      data-tip="View"
+                      onClick={() => navigate(`/pwd-info/${pwd.id}`)}
+                    >
+                      <FaEye />
+                    </button>
+                    <button
+                      className="btn btn-sm btn-error text-white tooltip"
+                      data-tip="Delete"
+                      onClick={() => handleDeleteClick(pwd.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="mt-2 text-sm">Showing 1-8 of 4300 entries</div>
-        <div className="join mt-2">
-          <button className="join-item btn">Previous</button>
-          <button className="join-item btn btn-active">1</button>
-          <button className="join-item btn">2</button>
-          <button className="join-item btn">3</button>
-          <button className="join-item btn">...</button>
-          <button className="join-item btn">Next</button>
+
+        {/* Pagination */}
+        <div className="mt-4 flex justify-between items-center text-sm px-2">
+          <span>Showing 1-8 of 4300 entries</span>
+          <div className="join">
+            <button className="join-item btn btn-sm">Previous</button>
+            <button className="join-item btn btn-sm btn-active">1</button>
+            <button className="join-item btn btn-sm">2</button>
+            <button className="join-item btn btn-sm">3</button>
+            <button className="join-item btn btn-sm">...</button>
+            <button className="join-item btn btn-sm">Next</button>
+          </div>
         </div>
       </div>
+
+      {/* Delete Confirmation */}
       <DeleteConfirmationModal
         id={selectedId || ""}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         onConfirm={handleConfirmDelete}
       />
-      ;
     </div>
   );
 }
