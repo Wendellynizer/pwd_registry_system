@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404
 
 from .serializer import *
 from .models import *
-from .util import messages
+from .util import messages, helpers
 
 # Create your views here.
 # class BarangayListAPIView(generics.ListAPIView):
@@ -29,24 +29,6 @@ def get_barangays(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def get_cities(request):
-    city = City.objects.all()
-    serializer = CitySerializer(city, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def get_pronvinces(request):
-    province = Province.objects.all()
-    serializer = ProvinceSerializer(province, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def get_education(request):
-    education = EducationalAttainment.objects.all()
-    serializer = EducationalAttainmentSerializer(education, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
 def get_occupations(request):
     occupation = Occupation.objects.all()
     serializer = OccupationSerializer(occupation, many=True)
@@ -56,9 +38,9 @@ class ApplicationViewSet(ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
 
-class ApplicantViewSet(ModelViewSet):
-    queryset = Applicant.objects.all()
-    serializer_class = ApplicantSerializer
+# class ApplicantViewSet(ModelViewSet):
+#     queryset = Applicant.objects.all()
+#     serializer_class = ApplicantSerializer
 
 
 # account login/create
@@ -80,6 +62,11 @@ def login(request):
 
     return Response({'token': token.key, 'user': serializer.data})
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def logout(request):
+    request.user.auth_token.delete() # Deletes the token
+    return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def create_account(request):
@@ -104,3 +91,12 @@ def create_account(request):
 @permission_classes([IsAuthenticated])
 def test_token(request):
     return Response({"passed for {}".format(request.user.username)})
+
+
+
+
+#* HELPERS
+@api_view(['GET'])
+def generate_reg_number(request):
+    reg_no = helpers.generate_random_reg_no()
+    return Response({'registration_no': reg_no}, status=status.HTTP_200_OK)

@@ -1,8 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 from .address import Address
-from .education import EducationalAttainment
 from .employment import EmploymentInfo
-from .family import FamilyDetail
 
 
 class Applicant(models.Model):
@@ -15,7 +14,7 @@ class Applicant(models.Model):
         max_length=6,
         choices={'MALE': 'Male', 'FEMALE': 'Female'}
     )
-    address_id = models.OneToOneField(Address, on_delete=models.CASCADE, null=True, blank=True)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE, null=True, blank=True)
     civil_status = models.CharField(
         choices={
             'SINGLE': 'Single',
@@ -28,16 +27,29 @@ class Applicant(models.Model):
     landline = models.CharField(max_length=30, null=True, blank=True)
     mobile_no = models.CharField(max_length=11, null=True, blank=True)
     email = models.CharField(max_length=100, null=True, blank=True)
-    education_id = models.ForeignKey(EducationalAttainment, on_delete=models.CASCADE, null=True, blank=True)
-    emp_info_id = models.OneToOneField(EmploymentInfo, on_delete=models.CASCADE, null=True, blank=True)
-    family_detail_id = models.OneToOneField(FamilyDetail, on_delete=models.CASCADE, null=True, blank=True)
+    education = models.CharField(
+        choices={
+            1: 'None',
+            2: 'Kindergarten',
+            3: 'Elementary',
+            4: 'Junior High School',
+            5: 'Senior High School',
+            6: 'College High School',
+            7: 'Vocational High School',
+            8: 'Post Graduate',
+        },
+        null=True, blank=True
+    )
+    emp_info = models.OneToOneField(EmploymentInfo, on_delete=models.CASCADE, null=True, blank=True)
+    family_details = models.JSONField(blank=True, null=True)
+    coordinates = models.JSONField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.firstname} {self.lastname}'
 
 class Application(models.Model):
-    applicant_id = models.OneToOneField(Applicant, on_delete=models.CASCADE)
-    # registration_no
+    applicant = models.OneToOneField(Applicant, on_delete=models.CASCADE, null=True, blank=True)
+    registration_no = models.CharField(max_length=7, unique=True, null=True, blank=True)
     registration_type = models.CharField(
         max_length=50,
         choices={
@@ -65,9 +77,9 @@ class Application(models.Model):
         },
         default='Pending'
     )
-    processing_officer = models.CharField(max_length=100, null=True, blank=True)
+    processing_officer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     approving_officer = models.CharField(max_length=100, null=True, blank=True)
     encoder = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return f'Application of {self.applicant_id.firstname} {self.applicant_id.lastname}'
+        return f'Application of {self.applicant.firstname} {self.applicant.lastname}'
