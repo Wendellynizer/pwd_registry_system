@@ -1,4 +1,5 @@
 from django.db import models
+from safedelete.models import SafeDeleteModel, SOFT_DELETE
 
 class Occupation(models.Model):
     occupation_name = models.CharField(max_length=255,)
@@ -7,6 +8,9 @@ class Occupation(models.Model):
         return self.occupation_name
     
 class EmploymentInfo(models.Model):
+
+    # _safedelete_policy = SOFT_DELETE
+
     emp_status = models.CharField(
         max_length=30, 
         choices={
