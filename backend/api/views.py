@@ -38,6 +38,26 @@ class ApplicationViewSet(ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        applicant = instance.applicant
+
+        self.perform_destroy(instance)
+
+        if applicant:
+            if hasattr(applicant, 'address'):
+                applicant.address.delete()
+            if hasattr(applicant, 'emp_info'):
+                applicant.emp_info.delete()
+            applicant.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+    def get_queryset(self):
+        return Application.objects.all()
+
 # class ApplicantViewSet(ModelViewSet):
 #     queryset = Applicant.objects.all()
 #     serializer_class = ApplicantSerializer

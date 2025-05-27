@@ -10,6 +10,9 @@ class ApplicantAdmin(admin.ModelAdmin):
 
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Application._meta.fields]
+    # def get_queryset(self, request):
+    #     # This includes soft-deleted records
+    #     return Application.all_objects.all()
 
 
 # Register your models here.

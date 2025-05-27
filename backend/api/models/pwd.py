@@ -2,9 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from .address import Address
 from .employment import EmploymentInfo
-
+from safedelete.models import SafeDeleteModel, SOFT_DELETE
 
 class Applicant(models.Model):
+
+    # _safedelete_policy = SOFT_DELETE
+
     lastname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     middlename = models.CharField(max_length=100, null=True, blank=True)
@@ -48,6 +51,9 @@ class Applicant(models.Model):
         return f'{self.firstname} {self.lastname}'
 
 class Application(models.Model):
+
+    # _safedelete_policy = SOFT_DELETE
+
     applicant = models.OneToOneField(Applicant, on_delete=models.CASCADE, null=True, blank=True)
     registration_no = models.CharField(max_length=7, unique=True, null=True, blank=True)
     registration_type = models.CharField(
