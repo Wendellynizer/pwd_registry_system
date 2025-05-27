@@ -86,7 +86,7 @@ const AgeGroupBarChart = () => {
   };
 
   return (
-    <div className="card shadow-md p-4 border border-gray-200 rounded-lg">
+    <div className="card shadow-md p-4 border border-gray-200 rounded-lg pb-16">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold text-gray-800">By Age Group</h2>
         <select
