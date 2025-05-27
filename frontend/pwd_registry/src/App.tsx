@@ -20,6 +20,8 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 import PWDProfile from "./pages/PWDProfile";
 import EditPWDProfile from "./pages/EditPWDProfile";
+import EditDisability from "./pages/EditDisability";
+import EditPersonnel from "./pages/EditPersonnel";
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -60,6 +62,8 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="pwd-info/:id" element={<PWDProfile />} />
           <Route path="pwd-info/:id/edit" element={<EditPWDProfile />} />
+          <Route path="edit-disability/:name" element={<EditDisability />} />
+          <Route path="edit-personnel/:id" element={<EditPersonnel />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>

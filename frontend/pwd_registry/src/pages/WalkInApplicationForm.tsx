@@ -81,7 +81,9 @@ export default function WalkInApplicationForm() {
 
         {/* Personal Information */}
         <div className="card bg-base-100 shadow-md p-6 space-y-6">
-          <h2 className="text-lg font-semibold">Personal Information</h2>
+          <h2 className="text-lg font-semibold text-sky-950 border-b pb-2">
+            👤 Personal Information
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="form-control">
@@ -158,8 +160,10 @@ export default function WalkInApplicationForm() {
         </div>
 
         {/* Contact Information */}
-        <div className="card bg-base-100 shadow-md p-6 space-y-4">
-          <h2 className="text-lg font-semibold">Contact Information</h2>
+        <div className="card bg-base-100 shadow-md p-6 space-y-6">
+          <h2 className="text-lg font-semibold text-sky-950 border-b pb-2">
+            📞 Contact Information
+          </h2>
           <div className="grid md:grid-cols-2 gap-4">
             {["Mobile No.", "Email", "Landline No."].map((label, index) => (
               <div className="form-control space-y-1" key={index}>
@@ -172,8 +176,10 @@ export default function WalkInApplicationForm() {
         </div>
 
         {/* Address */}
-        <div className="card bg-base-100 shadow-md p-6 space-y-4">
-          <h2 className="text-lg font-semibold">Address</h2>
+        <div className="card bg-base-100 shadow-md p-6 space-y-6">
+          <h2 className="text-lg font-semibold text-sky-950 border-b pb-2">
+            📍 Address
+          </h2>
           <p></p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control space-y-1">
@@ -199,8 +205,10 @@ export default function WalkInApplicationForm() {
         </div>
 
         {/* Background */}
-        <div className="card bg-base-100 shadow-md p-6 space-y-4">
-          <h2 className="text-lg font-semibold">Background</h2>
+        <div className="card bg-base-100 shadow-md p-6 space-y-6">
+          <h2 className="text-lg font-semibold text-sky-950 border-b pb-2">
+            🏫 Background
+          </h2>
           <div className="grid md:grid-cols-2 gap-4">
             {[
               {
@@ -242,8 +250,10 @@ export default function WalkInApplicationForm() {
         </div>
 
         {/* Disability */}
-        <div className="card bg-base-100 shadow-md p-6 space-y-4">
-          <h2 className="text-lg font-semibold">Disability Details</h2>
+        <div className="card bg-base-100 shadow-md p-6 space-y-6">
+          <h2 className="text-lg font-semibold text-sky-950 border-b pb-2">
+            📇 Disability Details
+          </h2>
           {disabilities.map((entry, index) => (
             <div
               key={index}
@@ -310,8 +320,10 @@ export default function WalkInApplicationForm() {
         </div>
 
         {/* Identifiers */}
-        <div className="card bg-base-100 shadow-md p-6 space-y-4">
-          <h2 className="text-lg font-semibold">Identifiers</h2>
+        <div className="card bg-base-100 shadow-md p-6 space-y-6">
+          <h2 className="text-lg font-semibold text-sky-950 border-b pb-2">
+            🪪 Identifiers
+          </h2>
           <div className="grid md:grid-cols-3 gap-4">
             {[
               "SSS No.",
@@ -322,6 +334,122 @@ export default function WalkInApplicationForm() {
               "Other ID",
             ].map((label, index) => (
               <div className="form-control space-y-1" key={index}>
+                <label className="label font-medium">{label}</label>
+                <input className="input input-bordered" placeholder={label} />
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Family Background */}
+        <div className="card bg-base-100 shadow-md p-6 space-y-6">
+          <h2 className="text-lg font-semibold text-sky-950 border-b pb-2">
+            👨‍👩‍👧‍👦 Family Background
+          </h2>
+
+          <div className="space-y-4">
+            {/* Father Info */}
+            <div>
+              <h3 className="text-md font-semibold text-gray-700 mb-2">
+                Father
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                {[
+                  "Father's First Name",
+                  "Father's Middle Name",
+                  "Father's Last Name",
+                ].map((label, i) => (
+                  <div key={i} className="form-control">
+                    <label className="label font-medium">{label}</label>
+                    <input
+                      className="input input-bordered"
+                      placeholder={label}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mother Info */}
+            <div>
+              <h3 className="text-md font-semibold text-gray-700 mb-2">
+                Mother
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                {[
+                  "Mother's First Name",
+                  "Mother's Middle Name",
+                  "Mother's Last Name",
+                ].map((label, i) => (
+                  <div key={i} className="form-control">
+                    <label className="label font-medium">{label}</label>
+                    <input
+                      className="input input-bordered"
+                      placeholder={label}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Guardian Info */}
+            <div>
+              <h3 className="text-md font-semibold text-gray-700 mb-2">
+                Guardian
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                {[
+                  "Guardian's First Name",
+                  "Guardian's Middle Name",
+                  "Guardian's Last Name",
+                ].map((label, i) => (
+                  <div key={i} className="form-control">
+                    <label className="label font-medium">{label}</label>
+                    <input
+                      className="input input-bordered"
+                      placeholder={label}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Process Information */}
+        <div className="card bg-base-100 shadow-md p-6 space-y-6">
+          <h2 className="text-lg font-semibold text-sky-950 border-b pb-2">
+            ✅ Process
+          </h2>
+
+          {/* Accomplished By */}
+          <div className="form-control">
+            <label className="label font-medium">Accomplished By</label>
+            <div className="flex gap-4">
+              {["Applicant", "Guardian", "Representative"].map((role, i) => (
+                <label key={i} className="flex items-center gap-2">
+                  <input type="radio" name="accomplishedBy" className="radio" />{" "}
+                  {role}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Names & Officers */}
+          <div className="grid md:grid-cols-3 gap-4">
+            {["Last Name", "First Name", "Middle Name"].map((label, i) => (
+              <div key={i} className="form-control space-y-1">
+                <label className="label font-medium">{label}</label>
+                <input className="input input-bordered" placeholder={label} />
+              </div>
+            ))}
+            {[
+              "Processing Officer",
+              "Approving Officer",
+              "Encoder",
+              "Control No.",
+              "NAME OF REPORTING UNIT: (OFFICE/SECTION)",
+            ].map((label, i) => (
+              <div key={i} className="form-control space-y-1">
                 <label className="label font-medium">{label}</label>
                 <input className="input input-bordered" placeholder={label} />
               </div>
