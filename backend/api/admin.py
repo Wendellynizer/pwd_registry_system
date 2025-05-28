@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models.address import *
 from .models.employment import *
-from .models.identifier import *
 from .models.pwd import *
+from .models.disability import *
 
 
 class ApplicantAdmin(admin.ModelAdmin):
@@ -20,7 +20,11 @@ admin.site.register(Barangay)
 admin.site.register(Address)
 admin.site.register(Occupation)
 admin.site.register(EmploymentInfo)
-admin.site.register(IdentifierInfo)
+
+admin.site.register(DisabilityCategory)
+admin.site.register(DisabilityOrigin)
+admin.site.register(SpecificDisability)
+admin.site.register(ApplicantDisability)
 
 # admin.site.register(Applicant, ApplicantAdmin)
 admin.site.register(Applicant, ApplicantAdmin)

@@ -11,7 +11,9 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from .serializer import *
+from .serializer.applicant_info import *
+from .serializer.pwd_ser import *
+from .serializer.user_serializer import *
 from .models import *
 from .util import messages, helpers
 
@@ -53,7 +55,6 @@ class ApplicationViewSet(ModelViewSet):
             applicant.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
     def get_queryset(self):
         return Application.objects.all()
