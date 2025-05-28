@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404
 
 from .serializer.applicant_info import *
 from .serializer.pwd_ser import *
+from .serializer.disability_ser import *
 from .serializer.user_serializer import *
 from .models import *
 from .util import messages, helpers
@@ -35,6 +36,11 @@ def get_occupations(request):
     occupation = Occupation.objects.all()
     serializer = OccupationSerializer(occupation, many=True)
     return Response(serializer.data)
+
+class DisabilityViewSet(ModelViewSet):
+    queryset = SpecificDisability.objects.all()
+    serializer_class = SpecificDisabilitySerializer
+
 
 class ApplicationViewSet(ModelViewSet):
     queryset = Application.objects.all()
@@ -59,9 +65,6 @@ class ApplicationViewSet(ModelViewSet):
     def get_queryset(self):
         return Application.objects.all()
 
-# class ApplicantViewSet(ModelViewSet):
-#     queryset = Applicant.objects.all()
-#     serializer_class = ApplicantSerializer
 
 
 # account login/create
@@ -81,7 +84,14 @@ def login(request):
     token, created = Token.objects.get_or_create(user=user)
     serializer = UserSerializer(instance=user)
 
-    return Response({'token': token.key, 'user': serializer.data})
+    return Response(
+        {
+            'token': token.key, 
+            'user': serializer.data, 
+            'message': 'Successfully Logged in'
+        }
+        , status=status.HTTP_200_OK
+    )
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

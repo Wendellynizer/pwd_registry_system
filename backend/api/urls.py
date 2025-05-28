@@ -9,18 +9,23 @@ from .views import *
 application_router = DefaultRouter()
 application_router.register(r'applications', ApplicationViewSet)
 
-urlpatterns = [
-    path('barangays/', get_barangays, name='get_barangays'),
-    path('occupations/', get_occupations, name='get_occupations'),
-    path('', include(application_router.urls), name='applications'),
-    # path('barangays/', BarangayListAPIView.as_view()),
-    path('get-reg-no/', generate_reg_number, name='get_reg_no'),
+disability_router = DefaultRouter()
+disability_router.register(r'disabilities', DisabilityViewSet)
 
-    #* simple token auth
+urlpatterns = [
+     #* simple token auth
     re_path('login/', login),
     re_path('logout/', logout),
     re_path('create-account/', create_account),
     path('test-token/', test_token),
+    path('barangays/', get_barangays, name='get_barangays'),
+    path('occupations/', get_occupations, name='get_occupations'),
+    path('', include(application_router.urls), name='applications'),
+    path('', include(disability_router.urls), name='disabilities'),
+    # path('barangays/', BarangayListAPIView.as_view()),
+    path('get-reg-no/', generate_reg_number, name='get_reg_no'),
+
+   
 
     #! for JWT auth
     path('token/', TokenObtainPairView.as_view()),

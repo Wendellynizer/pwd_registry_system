@@ -16,9 +16,8 @@ class DisabilityOriginSerializer (serializers.ModelSerializer):
         fields = '__all__'
 
 class SpecificDisabilitySerializer (serializers.ModelSerializer):
-    
     class Meta:
-        model = DisabilityOrigin
+        model = SpecificDisability
         fields = '__all__'
 
 class ApplicantDisabilitySerializer(serializers.ModelSerializer):
