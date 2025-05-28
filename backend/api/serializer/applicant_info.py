@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Barangay, Address, EmploymentInfo, Occupation, IdentifierInfo
+from ..models import *
 
 #* ADDRESS
 class BarangaySerializer(serializers.ModelSerializer):
@@ -23,9 +23,4 @@ class EmploymentInfoSerializer(serializers.ModelSerializer):
     # occupation_id = OccupationSerializer()
     class Meta:
         model = EmploymentInfo
-        fields = '__all__'
-
-class IndentifierInfoSerializer(serializers.ModelSerializer):
-    class Meta: 
-        model = IdentifierInfo
         fields = '__all__'

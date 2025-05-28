@@ -1,4 +1,4 @@
 from .address import *
 from .employment import *
-from .identifier import *
+from .disability import *
 from .pwd import *

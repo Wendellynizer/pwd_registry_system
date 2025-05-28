@@ -6,12 +6,6 @@ from rest_framework_simplejwt.views import (
 )
 from .views import *
 
-# router = DefaultRouter()
-# router.register(r'applications', ApplicationViewSet)
-
-# applicant_router = DefaultRouter()
-# applicant_router.register(r'applicants', ApplicantViewSet)
-
 application_router = DefaultRouter()
 application_router.register(r'applications', ApplicationViewSet)
 

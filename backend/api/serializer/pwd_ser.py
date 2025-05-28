@@ -2,33 +2,79 @@ from rest_framework import serializers
 from django.db import transaction
 from .applicant_info import *
 from ..models.pwd import Applicant, Application
-   
-class ApplicantSerializer(serializers.ModelSerializer):
+from ..models.disability import ApplicantDisability, DisabilityOrigin, SpecificDisability
+from ..serializer.disability_ser import ApplicantDisabilitySerializer
 
+class ApplicantSerializer(serializers.ModelSerializer):
+    # applicant_disability = ApplicantDisabilitySerializer(many=True)
+    # address = AddressSerializer()
+    # emp_info = EmploymentInfoSerializer()
     address = AddressSerializer()
     emp_info = EmploymentInfoSerializer()
+    applicant_disability = ApplicantDisabilitySerializer(many=True)
 
     class Meta:
         model = Applicant
         fields = '__all__'
 
+    @transaction.atomic
+    def create(self, validated_data):
+        address_data = validated_data.pop('address')
+        emp_data = validated_data.pop('emp_info')
+        # disability_data = validated_data.pop('applicant_disability')
+        # print(disability_data)
+        applicant_disability = validated_data.pop('applicant_disability')
+        address = Address.objects.create(**address_data)
+        emp_info = EmploymentInfo.objects.create(**emp_data)
+
+        applicant = Applicant.objects.create(
+            address=address,
+            emp_info=emp_info,
+            **validated_data
+        )
+
+        for dis in applicant_disability:
+            ApplicantDisability.objects.create(applicant=applicant, **dis)
+
+        # return
+        return applicant
+
 class ApplicationSerializer(serializers.ModelSerializer):
     applicant = ApplicantSerializer()
-    partial=True
+    
+    # partial=True
     class Meta:
         model = Application
         fields = '__all__'
 
-
     @transaction.atomic
     def create(self, validated_data):
+        # print('In Application: ', validated_data)
+        
+        applicant_data = validated_data.pop('applicant')
+        applicant = ApplicantSerializer().create(applicant_data)
+        
+        # print(disability_data)
+        
+        
+
+        application = Application.objects.create(applicant=applicant, **validated_data)
+        # return
+        return application   
+
+
+    # @transaction.atomic
+    # def create(self, validated_data):
         # fetch data from payload
         applicant_data = validated_data.pop('applicant')
-        # barangay_data = validated_data.pop('barangay_id')
+        # disability_data = applicant_data.pop('applicant_disability')
         address_data = applicant_data.pop('address')
-        # occupation_data = validated_data.pop('occupation_id')
         emp_info_data = applicant_data.pop('emp_info')
-
+        
+        
+        print(applicant_data.pop('applicant_disability'))
+        return
+        
         # saving in order
         address = Address.objects.create(**address_data)
         emp_info = EmploymentInfo.objects.create(**emp_info_data)
@@ -37,6 +83,9 @@ class ApplicationSerializer(serializers.ModelSerializer):
             emp_info=emp_info,
             **applicant_data,
         )
+
+        for disability in disability_data:
+            ApplicantDisability.objects.create(applicant=applicant_inst, **disability)
 
         application = Application.objects.create(applicant=applicant_inst, **validated_data)
     
@@ -78,4 +127,3 @@ class ApplicationSerializer(serializers.ModelSerializer):
             applicant.save()
 
         return instance
-    
