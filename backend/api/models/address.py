@@ -1,4 +1,5 @@
 from django.db import models
+from safedelete.models import SafeDeleteModel, SOFT_DELETE
 
 #* models for Address
 #* it is made like this to become flexible
@@ -11,17 +12,11 @@ class Barangay(models.Model):
     def __str__(self):
         return self.barangay_name
 
-class City(models.Model):
-    city_name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.city_name
-
-class Province(models.Model):
-    province_name = models.CharField(max_length=100)
-
 class Address(models.Model):
+
+    # _safedelete_policy = SOFT_DELETE
+
     street_address = models.CharField(max_length=150)
-    barangay = models.ForeignKey(Barangay, on_delete=models.CASCADE, null=True, blank=True)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
-    province = models.ForeignKey(Province, on_delete=models.CASCADE, null=True, blank=True)
+    barangay_id = models.ForeignKey(Barangay, on_delete=models.CASCADE, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    province = models.CharField(max_length=50, null=True, blank=True)
