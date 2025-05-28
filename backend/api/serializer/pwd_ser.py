@@ -5,10 +5,11 @@ from ..models.pwd import Applicant, Application
 from ..models.disability import ApplicantDisability, DisabilityOrigin, SpecificDisability
 from ..serializer.disability_ser import ApplicantDisabilitySerializer
 
+from ..util.helpers import generate_random_reg_no
+
 class ApplicantSerializer(serializers.ModelSerializer):
-    # applicant_disability = ApplicantDisabilitySerializer(many=True)
-    # address = AddressSerializer()
-    # emp_info = EmploymentInfoSerializer()
+
+    # add serializers
     address = AddressSerializer()
     emp_info = EmploymentInfoSerializer()
     applicant_disability = ApplicantDisabilitySerializer(many=True)
@@ -21,11 +22,11 @@ class ApplicantSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         address_data = validated_data.pop('address')
         emp_data = validated_data.pop('emp_info')
-        # disability_data = validated_data.pop('applicant_disability')
-        # print(disability_data)
+        
         applicant_disability = validated_data.pop('applicant_disability')
         address = Address.objects.create(**address_data)
         emp_info = EmploymentInfo.objects.create(**emp_data)
+        print(validated_data)
 
         applicant = Applicant.objects.create(
             address=address,
@@ -49,48 +50,17 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
-        # print('In Application: ', validated_data)
+        print('In Application: ', validated_data)
         
         applicant_data = validated_data.pop('applicant')
         applicant = ApplicantSerializer().create(applicant_data)
-        
-        # print(disability_data)
-        
-        
+
+
+        validated_data['registration_no'] = generate_random_reg_no()
 
         application = Application.objects.create(applicant=applicant, **validated_data)
         # return
         return application   
-
-
-    # @transaction.atomic
-    # def create(self, validated_data):
-        # fetch data from payload
-        applicant_data = validated_data.pop('applicant')
-        # disability_data = applicant_data.pop('applicant_disability')
-        address_data = applicant_data.pop('address')
-        emp_info_data = applicant_data.pop('emp_info')
-        
-        
-        print(applicant_data.pop('applicant_disability'))
-        return
-        
-        # saving in order
-        address = Address.objects.create(**address_data)
-        emp_info = EmploymentInfo.objects.create(**emp_info_data)
-        applicant_inst = Applicant.objects.create(
-            address=address,
-            emp_info=emp_info,
-            **applicant_data,
-        )
-
-        for disability in disability_data:
-            ApplicantDisability.objects.create(applicant=applicant_inst, **disability)
-
-        application = Application.objects.create(applicant=applicant_inst, **validated_data)
-    
-        print(application._meta.fields)
-        return application
 
  
     @transaction.atomic

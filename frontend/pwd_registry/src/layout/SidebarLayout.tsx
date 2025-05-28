@@ -97,7 +97,7 @@ const SidebarLayout = () => {
           </div>
 
           {/* Manage */}
-          <div>
+          <div className="space-y-3">
             {isSidebarOpen && (
               <p className="uppercase text-xs mb-2 text-white">Manage</p>
             )}
@@ -107,6 +107,12 @@ const SidebarLayout = () => {
               label="PWD Management"
               isSidebarOpen={isSidebarOpen}
               extraActivePaths={["/walk-in-application"]}
+            />
+            <SidebarNavItem
+              to="/application"
+              icon={FaInfoCircle}
+              label="Applications"
+              isSidebarOpen={isSidebarOpen}
             />
             <SidebarNavItem
               to="/disability-info"
@@ -123,7 +129,7 @@ const SidebarLayout = () => {
           </div>
 
           {/* Others */}
-          <div>
+          <div className="space-y-3">
             {isSidebarOpen && (
               <p className="uppercase text-xs mb-2 text-white">Others</p>
             )}

@@ -12,6 +12,7 @@ class Applicant(models.Model):
     middlename = models.CharField(max_length=100, null=True, blank=True)
     suffix = models.CharField(max_length=20, null=True, blank=True)
     maiden_name = models.CharField(max_length=100, null=True, blank=True)
+    birthdate = models.DateField(null=True, blank=True)
     gender = models.CharField(
         max_length=6,
         choices={'MALE': 'Male', 'FEMALE': 'Female'}
@@ -36,7 +37,7 @@ class Applicant(models.Model):
             3: 'Elementary',
             4: 'Junior High School',
             5: 'Senior High School',
-            6: 'College High School',
+            6: 'College',
             7: 'Vocational High School',
             8: 'Post Graduate',
         },
@@ -79,11 +80,24 @@ class Application(models.Model):
             'APPROVED': 'Approved',
             'REJECTED': 'Rejected'
         },
-        default='Pending'
+        default='PENDING'
     )
-    processing_officer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    processing_officer = models.CharField(max_length=100, null=True, blank=True)
     approving_officer = models.CharField(max_length=100, null=True, blank=True)
     encoder = models.CharField(max_length=100, null=True, blank=True)
    
     def __str__(self):
         return f'Application of {self.applicant.firstname} {self.applicant.lastname}'
+
+class PWDProfile(models.Model):
+    application = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, blank=True)
+    status = models.CharField(
+        max_length=10,
+        choices={
+            'ACTIVE': 'Active',
+            'INACTIVE': 'Inactive',
+        }
+    ),
+    inactive_reason = models.CharField(max_length=255, null=True, blank=True), 
+    date_died = models.DateField(null=True, blank=True)
+    pwd_card_id = models.CharField(max_length=255, null=True, blank=True)

@@ -21,7 +21,7 @@ class EmploymentInfo(models.Model):
     emp_category = models.CharField(
         max_length=30,
         choices={
-            'GOVERMENT': 'Government',
+            'GOVERNMENT': 'Government',
             'PRIVATE': 'Private'
         },
         null=True, blank=True

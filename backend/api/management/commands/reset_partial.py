@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from ...models import Address, EmploymentInfo, Applicant, Application, ApplicantDisability
+from ...models import Address, EmploymentInfo, Applicant, Application, ApplicantDisability, SpecificDisability
 
 
 class Command(BaseCommand):
@@ -11,4 +11,5 @@ class Command(BaseCommand):
         Applicant.objects.all().delete()
         Application.objects.all().delete()
         ApplicantDisability.objects.all().delete()
+        SpecificDisability.objects.all().delete()
         self.stdout.write(self.style.SUCCESS("Specific tables cleared successfully."))

@@ -1,20 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from '../endpoints/api';
 
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
     // Simple dummy check — replace with actual auth later
-    if (username === "admin" && password === "admin") {
-      localStorage.setItem("isLoggedIn", "true");
+    // if (username === "admin" && password === "admin") {
+    //   localStorage.setItem("isLoggedIn", "true");
+    //   navigate("/");
+    // } else {
+    //   alert("Invalid credentials");
+    // }
+    let response: any = await login(username, password);
+    
+    if(response.status === 200) {
+      // console.log('success');
       navigate("/");
-    } else {
-      alert("Invalid credentials");
     }
   };
 
