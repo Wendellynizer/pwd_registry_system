@@ -9,7 +9,7 @@ class ApplicantAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Applicant._meta.fields]
 
 class ApplicationAdmin(admin.ModelAdmin):
-    readonly_fields = ('date_applied',)
+    # readonly_fields = ('date_applied',)
     list_display = [field.name for field in Application._meta.fields]
     # def get_queryset(self, request):
     #     # This includes soft-deleted records
@@ -28,6 +28,7 @@ admin.site.register(DisabilityOrigin)
 admin.site.register(SpecificDisability)
 admin.site.register(ApplicantDisability)
 
+admin.site.register(PWDProfile)
 # admin.site.register(Applicant, ApplicantAdmin)
 admin.site.register(Applicant, ApplicantAdmin)
 admin.site.register(Application, ApplicationAdmin)

@@ -99,10 +99,10 @@ export default function PWDManage() {
           </div>
         </div>
         <button
-          className="btn btn-success shadow-md"
-          onClick={() => navigate("/walk-in-application")}
+          className="btn btn-warning shadow-md"
+          onClick={() => navigate("/update-requests")}
         >
-          <FaPlus className="mr-2" /> Walk-in Application
+          Update Requests (1)
         </button>
       </div>
 

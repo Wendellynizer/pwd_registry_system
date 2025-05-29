@@ -10,6 +10,7 @@ const GET_EDUCATION = `${BASE_URL}educations/`;
 const GET_OCCUPATION = `${BASE_URL}occupations/`;
 const LOGIN_URL = `${BASE_URL}login/`;
 const APPLICATIONS_URL = `${BASE_URL}applications/`;
+const PWD_URL = `${BASE_URL}pwds/`;
 
 const DISABILITIES_URL = `${BASE_URL}disabilities/`
 
@@ -80,16 +81,65 @@ export const createDisability = async(disability: any) => {
     }
 }
 
+//* PWd
+export const getPWDs = async () => {
+    try {
+         const response = await axios.get(PWD_URL, {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+         });
+
+         console.log(response.data)
+         return response
+    } catch(error) {
+        console.log(error);
+    }
+}
+
 //* Applications
 export const getApplications = async() => {
     try {
-        const response = await axios.post(APPLICATIONS_URL, {
+        console.log(localStorage.getItem('token'))
+        const response = await axios.get(APPLICATIONS_URL, {
             headers: {
-                "Authorization": "Token "+localStorage.getItem('token')
+                "Authorization": `Token ${localStorage.getItem('token')}`
             }
         });
 
-        return response;
+        return response.data;
+
+        // const response = await fetch(APPLICATIONS_URL, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // })
+
+        // if (!response.ok) {
+        //     const errorData = await response.json();
+        //     console.error("Error Response Data:", errorData);
+        //     throw new Error('Failed to fetch applications');
+        // }
+
+        // const data = await response.json();
+        // return data;
+        
+    } catch(error) {
+        console.log(error.response?.data);
+        console.log('Error Fetching Applications: ', error)
+    }
+}
+
+export const getApplication = async(id: any) => {
+    try {
+        const response = await axios.get(`${APPLICATIONS_URL}${id}`, {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem('token')}`
+            }
+        });
+
+        return response.data;
         
     } catch(error) {
         console.log(error.response?.data);
@@ -111,4 +161,22 @@ export const createApplication = async(applicationData: any) => {
         console.log(error.response?.data);
         console.log('Error Creating Application: ', error)
     }
+}
+
+export const deleteApplication = async(id: any) => {
+    try {
+        const response = await axios.delete(`${APPLICATIONS_URL}${id}/`,{
+            headers: {
+                "Authorization": "Token "+localStorage.getItem('token')
+            }
+        });
+        return response.data;
+    } catch(error) {
+        console.log(error.response?.data);
+        console.log('Error Deleting Application: ', error)
+    }
+}
+
+export const applicationVerdict = async(verdict: any) => {
+    
 }

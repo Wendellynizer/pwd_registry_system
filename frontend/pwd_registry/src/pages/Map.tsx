@@ -1,5 +1,7 @@
 import { FaSearch } from "react-icons/fa";
 import { Bar } from "react-chartjs-2";
+import { MapContainer, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 import {
   Chart as ChartJS,
   BarElement,
@@ -8,6 +10,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+
+// import TagumMap from "../components/TagumMap";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -35,27 +39,29 @@ export default function Map() {
   return (
     <div className="space-y-6">
       {/* Search & Filter */}
-      <div className="flex items-center gap-2">
+      {/* <div className="flex items-center gap-2">
         <label className="input input-bordered flex items-center gap-2 max-w-xs">
           <FaSearch />
           <input type="text" className="grow" placeholder="Search" />
         </label>
         <button className="btn btn-outline">Filter</button>
-      </div>
+      </div> */}
 
       {/* Main Content: Map + Chart */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Map Image (replace src with actual image file) */}
-        <div className="lg:col-span-2">
-          <img
-            src="/map-demo.png" // replace with actual map path
-            alt="Map of Barangays"
-            className="rounded-lg shadow-md w-full"
-          />
+        
+        <div className="border">
+          <MapContainer center={[7.405113492418119, 125.78985918853762]} zoom={13}>
+           <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+        </MapContainer>
         </div>
 
         {/* Chart + Legend */}
-        <div className="space-y-4">
+        <div className="space-y-4 absolute right-5 top-20">
           <div className="card p-4 shadow-md">
             <h2 className="text-lg font-semibold mb-2">By Barangay</h2>
             <Bar data={chartData} options={chartOptions} />

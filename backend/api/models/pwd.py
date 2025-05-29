@@ -31,15 +31,16 @@ class Applicant(models.Model):
     mobile_no = models.CharField(max_length=11, null=True, blank=True)
     email = models.CharField(max_length=100, null=True, blank=True)
     education = models.CharField(
+        max_length=100,
         choices={
-            1: 'None',
-            2: 'Kindergarten',
-            3: 'Elementary',
-            4: 'Junior High School',
-            5: 'Senior High School',
-            6: 'College',
-            7: 'Vocational High School',
-            8: 'Post Graduate',
+            "1": 'None',
+            '2': 'Kindergarten',
+            '3': 'Elementary',
+            '4': 'Junior High School',
+            '5': 'Senior High School',
+            '6': 'College',
+            '7': 'Vocational',
+            '8': 'Post Graduate',
         },
         null=True, blank=True
     )
@@ -90,13 +91,14 @@ class Application(models.Model):
         return f'Application of {self.applicant.firstname} {self.applicant.lastname}'
 
 class PWDProfile(models.Model):
-    application = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, blank=True)
+    application = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, blank=True, related_name='pwdprofiles')
     status = models.CharField(
         max_length=10,
         choices={
             'ACTIVE': 'Active',
             'INACTIVE': 'Inactive',
-        }
+        },
+        default='ACTIVE'
     ),
     inactive_reason = models.CharField(max_length=255, null=True, blank=True), 
     date_died = models.DateField(null=True, blank=True)

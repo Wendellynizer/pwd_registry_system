@@ -7,9 +7,12 @@ import {
   FaClock,
   FaInfoCircle,
   FaCalendarTimes,
+  FaRegClipboard,
   FaCog,
   FaSignOutAlt,
+
 } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
 import { useState } from "react";
 import CurrentDateTime from "../components/Shared/CurrentDateTime";
 
@@ -90,7 +93,7 @@ const SidebarLayout = () => {
             )}
             <SidebarNavItem
               to="/"
-              icon={FaCalendarTimes}
+              icon={MdDashboard}
               label="Dashboard"
               isSidebarOpen={isSidebarOpen}
             />
@@ -110,7 +113,7 @@ const SidebarLayout = () => {
             />
             <SidebarNavItem
               to="/application"
-              icon={FaInfoCircle}
+              icon={FaRegClipboard }
               label="Applications"
               isSidebarOpen={isSidebarOpen}
             />

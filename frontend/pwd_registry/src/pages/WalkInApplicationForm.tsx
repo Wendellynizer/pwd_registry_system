@@ -176,13 +176,12 @@ export default function WalkInApplicationForm() {
     if(response.status != 200) {
       // error thingz here
       console.log(response.data)
-      return
     }
 
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
-      navigate("/pwd-info");
+      navigate("/application");
     }, 1500); // You can adjust the delay
   };
 

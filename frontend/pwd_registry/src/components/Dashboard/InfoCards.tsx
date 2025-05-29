@@ -10,9 +10,9 @@ const InfoCards = () => {
       {data.map((card) => (
         <div
           key={card.title}
-          className={`card ${card.bg} shadow-md border border-gray-200 min-h-[12rem]`}
+          className={`card ${card.bg} shadow-md border border-gray-200 min-h-[10rem]`}
         >
-          <div className="card-body px-6 py-6">
+          <div className="card-body p-6">
             <div className="flex items-center justify-between w-full gap-4 pt-7">
               {/* Icon on the left */}
               <div className="text-6xl sm:text-7xl">{card.icon}</div>
@@ -22,7 +22,7 @@ const InfoCards = () => {
                 <div className="text-lg font-medium text-gray-600">
                   {card.title}
                 </div>
-                <div className="text-5xl font-bold text-gray-800">
+                <div className="text-4xl font-bold text-gray-800">
                   {card.value}
                 </div>
               </div>

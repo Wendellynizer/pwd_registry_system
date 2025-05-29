@@ -47,6 +47,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = '__all__'
+        read_only_fields = ['date_applied']
 
     @transaction.atomic
     def create(self, validated_data):
@@ -97,3 +98,10 @@ class ApplicationSerializer(serializers.ModelSerializer):
             applicant.save()
 
         return instance
+
+
+class PWDProfileSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = PWDProfile
+        fields = '__all__'

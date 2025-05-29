@@ -16,7 +16,7 @@ const DeleteConfirmationModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0000008D]">
       <div className="bg-white p-6 rounded-lg shadow-md max-w-sm w-full animate-bounce-in space-y-4">
         <h2 className="text-lg font-bold text-red-600">Confirm Deletion</h2>
         <p className="text-gray-700">

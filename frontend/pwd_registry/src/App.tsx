@@ -1,70 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { get_all_barangays, get_all_city, get_all_province, get_education, get_occupations } from "./endpoints/api";
-
-// function App() {
-//   	const [username, setUsername] = useState("");
-//   	const [password, setPassword] = useState("");
-
-// 	const [barangays, setBarangays] = useState<any[]>([]);
-// 	const [cities, setCities] = useState<any[]>([]);
-// 	const [provinces, setProvinces] = useState<any[]>([]);
-// 	const [educations, setEducations] = useState<any[]>([]);
-// 	const [occupations, setOccupations] = useState<any[]>([]);
-	
-// 	const [formData, setFormData] = useState({});
-
-// 	function test() {
-// 		// test values here
-// 		// console.log('i')
-// 	}
-
-// 	const login = async () => {
-// 		try {
-// 		const response = await fetch("http://127.0.0.1:8000/api/token/", {
-// 			method: "POST",
-// 			headers: {
-// 			"Content-Type": "application/json",
-// 			},
-// 			body: JSON.stringify({ username, password }),
-// 		});
-
-// 		const data = await response.json();
-
-// 		if (response.ok) {
-// 			console.log(data.access);
-// 			console.log(data.refresh);
-// 		} else {
-// 			console.log("error");
-// 		}
-// 		} catch (e) {
-// 		console.log("blahblag");
-// 		}
-// 	};
-
-// 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-// 		e.preventDefault();
-
-// 		const form = e.currentTarget;
-// 		const formData = new FormData(form);
-// 		console.log(Array.from(formData.keys()))
-// 	};
-
-// 	const fetchBarangays = async () => {
-// 		test();
-
-// 		// setBarangays(await get_all_barangays());
-// 		// setCities(await get_all_city());
-// 		// setProvinces(await get_all_province());
-// 		// setEducations(await get_education());
-// 		// setOccupations(await get_occupations());
-// 	}
-
-// 	useEffect(() => {
-// 		fetchBarangays()
-// 	}, []);
-
-//   return (
-
 import {
   BrowserRouter as Router,
   Routes,
@@ -90,6 +23,7 @@ import PWDProfile from "./pages/PWDProfile";
 import EditPWDProfile from "./pages/EditPWDProfile";
 import EditDisability from "./pages/EditDisability";
 import EditPersonnel from "./pages/EditPersonnel";
+import UpdateRequest from "./pages/UpdateRequest";
 
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
@@ -116,6 +50,7 @@ function App() {
           {/* Nested Routes */}
           <Route index element={<Dashboard />} />
           <Route path="pwd-info" element={<PWDInfo />} />
+          <Route path="update-requests" element={<UpdateRequest />} />
           <Route path="application" element={<Application />} />
           <Route path="barangay" element={<Barangay />} />
           <Route path="disability-info" element={<DisabilityInfo />} />
